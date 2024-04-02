@@ -1,8 +1,10 @@
+import 'package:codealpha_flashcard_quiz_app/controller/displayscore_controller.dart';
 import 'package:codealpha_flashcard_quiz_app/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-class BottomOptions extends StatelessWidget {
+class BottomOptions extends GetView<DisplayscoreController> {
   const BottomOptions({super.key});
 
   @override
@@ -12,21 +14,20 @@ class BottomOptions extends StatelessWidget {
       children: [
         OptionButton(
           data: 'Home',
-          onTap: () {},
+          onTap: () {
+            Get.offAllNamed('/');
+          },
           icon: Icons.home,
           backgroundColor: AppColors.primaryColor,
         ),
         OptionButton(
           data: 'Quiz Again',
-          onTap: () {},
+          onTap: () {
+            Get.offNamed('startquiz',
+                arguments: {'cards': controller.flashcards});
+          },
           icon: Icons.restart_alt,
           backgroundColor: AppColors.secondaryColor,
-        ),
-        OptionButton(
-          data: 'Review',
-          onTap: () {},
-          icon: Icons.visibility,
-          backgroundColor: AppColors.grey,
         ),
       ],
     );

@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ScoreInfo extends StatelessWidget {
-  const ScoreInfo({super.key});
+  final String questions;
+  final String wrong;
+  final String correct;
+  const ScoreInfo(
+      {super.key,
+      required this.questions,
+      required this.wrong,
+      required this.correct});
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +44,8 @@ class ScoreInfo extends StatelessWidget {
                       color: AppColors.primaryColor,
                     ),
                   ),
-                  const ScoreFeature(
-                    data: '10',
+                  ScoreFeature(
+                    data: questions,
                     title: 'Total Questions',
                     color: AppColors.secondaryColor,
                   ),
@@ -51,14 +58,14 @@ class ScoreInfo extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: 180.w,
-                    child: const ScoreFeature(
-                      data: '3',
+                    child: ScoreFeature(
+                      data: wrong,
                       title: 'wrong',
                       color: Colors.red,
                     ),
                   ),
-                  const ScoreFeature(
-                    data: '7',
+                  ScoreFeature(
+                    data: correct,
                     title: 'Correct',
                     color: Colors.green,
                   ),

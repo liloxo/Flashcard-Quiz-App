@@ -30,6 +30,7 @@ class EditFlashCard extends StatelessWidget {
         return Container(
           margin: EdgeInsets.symmetric(horizontal: 15.w),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 height: 50.h,

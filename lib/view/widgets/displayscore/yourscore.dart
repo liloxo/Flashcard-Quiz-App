@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class YourScore extends StatelessWidget {
-  const YourScore({super.key});
+  final String score;
+  const YourScore({super.key, required this.score});
 
   @override
   Widget build(BuildContext context) {
@@ -30,22 +31,13 @@ class YourScore extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Your Score',
-                  style: TextStyle(fontSize: 17.sp, color: AppColors.third),
+                  'Your Score \n $score %',
+                  style: TextStyle(
+                    fontSize: 17.sp,
+                    color: AppColors.third,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                RichText(
-                    text: TextSpan(
-                        text: '100',
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.primaryColor),
-                        children: [
-                      TextSpan(
-                          text: ' pt',
-                          style: TextStyle(
-                              fontSize: 15.sp, color: AppColors.primaryColor))
-                    ]))
               ],
             ),
           ),

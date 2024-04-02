@@ -49,38 +49,73 @@ class HomePage extends StatelessWidget {
                 ),
                 child: HandlingDataView(
                     statusRequest: controller.statusRequest,
-                    widget: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: controller.flashcards?.length,
-                        itemBuilder: (context, i) {
-                          return Dismissible(
-                            onDismissed: (direction) {
-                              controller
-                                  .deletecard(controller.flashcards![i].id!);
-                              controller.flashcards!.removeAt(i);
-                            },
-                            background: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(20)),
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 8.h, horizontal: 15.w),
-                              child: const Icon(
-                                Icons.delete,
-                                color: Colors.white,
-                                size: 30,
+                    widget: Container(
+                      margin: EdgeInsets.symmetric(
+                          horizontal: 30.w, vertical: 10.h),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Start Quiz',
+                                style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 2,
+                                    color: AppColors.secondaryColor),
                               ),
-                            ),
-                            key: ValueKey(controller.flashcards![i]),
-                            child: Flashcard(
-                              onTap: () => Get.toNamed('edit', arguments: {
-                                'card': controller.flashcards![i]
+                              IconButton(
+                                  onPressed: () {
+                                    Get.toNamed('startquiz', arguments: {
+                                      'cards': controller.flashcards
+                                    });
+                                  },
+                                  icon: const Icon(
+                                    Icons.arrow_forward,
+                                    size: 30,
+                                    color: AppColors.secondaryColor,
+                                  ))
+                            ],
+                          ),
+                          ListView.builder(
+                              padding: EdgeInsets.only(top: 5.h),
+                              shrinkWrap: true,
+                              itemCount: controller.flashcards?.length,
+                              itemBuilder: (context, i) {
+                                return Dismissible(
+                                  onDismissed: (direction) {
+                                    controller.deletecard(
+                                        controller.flashcards![i].id!);
+                                    controller.flashcards!.removeAt(i);
+                                  },
+                                  background: Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    margin: EdgeInsets.symmetric(vertical: 8.h),
+                                    child: const Icon(
+                                      Icons.delete,
+                                      color: Colors.white,
+                                      size: 30,
+                                    ),
+                                  ),
+                                  key: ValueKey(controller.flashcards![i]),
+                                  child: Flashcard(
+                                    onTap: () => Get.toNamed('edit',
+                                        arguments: {
+                                          'card': controller.flashcards![i]
+                                        }),
+                                    i: i + 1,
+                                    question:
+                                        controller.flashcards![i].question!,
+                                  ),
+                                );
                               }),
-                              i: i + 1,
-                              question: controller.flashcards![i].question!,
-                            ),
-                          );
-                        }),
+                        ],
+                      ),
+                    ),
                     loading: const Center(
                         child: CircularProgressIndicator(
                       color: AppColors.third,

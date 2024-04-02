@@ -21,7 +21,7 @@ class Flashcard extends StatelessWidget {
       child: Card(
         color: AppColors.third,
         elevation: 2,
-        margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+        margin: EdgeInsets.symmetric(vertical: 8.h),
         child: Padding(
           padding: EdgeInsets.all(16.h),
           child: Column(
