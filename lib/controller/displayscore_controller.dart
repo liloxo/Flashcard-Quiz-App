@@ -8,10 +8,14 @@ class DisplayscoreController extends GetxController {
   late List<FlashCardModel> flashcards;
 
   String score() {
-    double score = correct * 100 / questions;
-    String stringValue = score.toString();
-    String firstTwoDigits =
-        stringValue.substring(0, stringValue.indexOf('.') + 3);
+    String score = (correct * 100 / questions).toString();
+    String firstTwoDigits;
+    if (score == '100.0') {
+      firstTwoDigits = score.toString();
+    } else {
+      firstTwoDigits = score.substring(0, score.indexOf('.') + 3);
+    }
+
     return firstTwoDigits;
   }
 

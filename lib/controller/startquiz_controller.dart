@@ -19,14 +19,10 @@ class StartquizController extends GetxController {
         'Please select an answer',
         style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w700),
       ));
+      return null;
     } else {
-      currentPage++;
-      if (usersAnswer == flashcards[i].rightanswer) {
-        correct++;
-      } else {
-        wrong++;
-      }
-      if (currentPage > flashcards.length - 1) {
+      if (currentPage == flashcards.length - 1) {
+        checkanswer(i);
         Get.offNamed('displayscore', arguments: {
           'correct': correct,
           'wrong': wrong,
@@ -34,12 +30,24 @@ class StartquizController extends GetxController {
           'cards': flashcards
         });
       } else {
+        checkanswer(i);
+
+        currentPage++;
+
         whentap = List<bool>.generate(4, (index) => false);
         usersAnswer = null;
         pageController.animateToPage(currentPage,
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeInOut);
       }
+    }
+  }
+
+  checkanswer(int i) {
+    if (usersAnswer == flashcards[i].rightanswer) {
+      correct++;
+    } else {
+      wrong++;
     }
   }
 
