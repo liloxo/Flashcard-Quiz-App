@@ -38,7 +38,7 @@ jobs:
       - name: Upload artifact to Firebase App Distribution - Production
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
-          appId: ${{ secrets.APP_ID }}
+          appId: ${{secrets.APP_ID}} 
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-          groups: testers
+          groups: All testers
           file: build/app/outputs/flutter-apk/app-production-release.apk
