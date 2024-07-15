@@ -1,9 +1,8 @@
 name: Android firebase_app_distribution PushToTesters 
 
 on:
-    push:
-      branches: ['main']
-
+  push:
+    branches: ['main']
 
 jobs: 
   distribute_to_firebase: 
@@ -28,6 +27,5 @@ jobs:
         with:
           appId: ${{secrets.APP_ID}} 
           serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
-
           groups: testers
-          file: build/app/outputs/flutter-apk/app-release.apk
+          file: build/app/outputs/flutter-apk/app-production-release.apk 
