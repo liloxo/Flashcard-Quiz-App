@@ -1,0 +1,20 @@
+default_platform(:android)
+
+# To run the lane, execute the following command:
+# bundle exec fastlane firebase_distribution
+
+platform :android do
+  desc "Lane for Android Firebase App Distribution"
+  lane :firebase_distribution do
+    sh "flutter clean"
+    sh "flutter build apk --release --flavor production --target lib/main_production.dart --no-tree-shake-icons"
+    firebase_app_distribution(
+        app: "1:349455690146:android:19d5ea22a8c59e8d6feafb",
+        firebase_cli_token: '1//0314PQBk-1H6ACgYIARAAGAMSNwF-L9IrXu8meCQqyme9QIkTSE8byojJdMwRIus_416zqjPgQVcXbVBl4HJH-4YgPOevx_djWIw',
+        android_artifact_type: "APK",
+        android_artifact_path: "../build/app/outputs/flutter-apk/app-production-release.apk",
+        testers: "boudigringo@gmail.com,boudirahal08@gmail.com",
+        release_notes: "First Fastlane App Distribution",
+  )
+  end
+end

@@ -8,15 +8,9 @@ class DisplayscoreController extends GetxController {
   late List<FlashCardModel> flashcards;
 
   String score() {
-    String score = (correct * 100 / questions).toString();
-    String firstTwoDigits;
-    if (score == '100.0') {
-      firstTwoDigits = score.toString();
-    } else {
-      firstTwoDigits = score.substring(0, score.indexOf('.') + 3);
-    }
-
-    return firstTwoDigits;
+    double percentage = (correct * 100 / questions);
+    String formattedScore = percentage.toStringAsFixed(2);
+    return formattedScore;
   }
 
   @override
