@@ -1,31 +1,44 @@
-name: Android firebase_app_distribution PushToTesters 
+name: Android Firebase App Distribution PushToTesters
 
 on:
   push:
-    branches: ['main']
+    branches:
+      - main
 
-jobs: 
-  distribute_to_firebase: 
-    runs-on: ubuntu-latest 
+jobs:
+  distribute_to_firebase:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Java
+        uses: actions/setup-java@v1
         with:
           java-version: '12.x'
-      - uses: subosito/flutter-action@v1
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          flutter-version: 'stable'
 
-      - name: Build APK
-        run: flutter build apk --release --flavor production --target lib/main_production.dart
-        
+      - name: Verify target files
+        run: |
+          test -f lib/main_production.dart || { echo "Target file lib/main_production.dart not found"; exit 1; }
+          test -f lib/main_development.dart || { echo "Target file lib/main_development.dart not found"; exit 1; }
+
+      - name: Build APKs
+        run: |
+          flutter build apk --release --flavor production --target lib/main_production.dart --no-tree-shake-icons
+      
       - name: List APK files
-        run: ls build/app/outputs/flutter-apk
+        run: |
+          ls build/app/outputs/flutter-apk
 
-      - name: Upload artifact to Firebase App Distribution
+      - name: Upload artifact to Firebase App Distribution - Production
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
-          appId: ${{secrets.APP_ID}} 
-          serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
+          appId: ${{ secrets.APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
           groups: testers
-          file: build/app/outputs/flutter-apk/app-production-release.apk 
+          file: build/app/outputs/flutter-apk/app-production-release.apk
